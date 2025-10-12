@@ -455,65 +455,63 @@
       <!-- ✅ 只让这个标题居中 -->
       <h2 class="title is-3 has-text-centered">MIDI Demo</h2>
 
-      <!-- Piano Roll Visualizer -->
-      <div class="midi-block" style="margin-top: 2rem;">
-        <h3 class="title is-5">🎹 Piano Roll Visualizer</h3>
-        <midi-player
-          src="static/mid/鸟之诗.mid"
-          sound-font
-          visualizer="#viz-piano-roll">
-        </midi-player>
-        <midi-visualizer
-          type="piano-roll"
-          id="viz-piano-roll">
-        </midi-visualizer>
-      </div>
-
-      <!-- Staff Visualizer -->
-      <div class="midi-block" style="margin-top: 2rem;">
-        <h3 class="title is-5">🎼 Staff Visualizer</h3>
-        <midi-player
-          src="static/mid/鸟之诗.mid"
-          sound-font
-          visualizer="#viz-staff-1">
-        </midi-player>
-        <midi-visualizer
-          type="staff"
-          id="viz-staff-1">
-        </midi-visualizer>
-      </div>
-
-      <!-- Another Staff Visualizer -->
-      <div class="midi-block" style="margin-top: 2rem;">
-        <h3 class="title is-5">✨ Another Example</h3>
-        <midi-player
-          src="static/mid/twinkle_twinkle.mid"
-          sound-font
-          visualizer="#viz-staff-2">
-        </midi-player>
-        <midi-visualizer
-          type="staff"
-          id="viz-staff-2">
-        </midi-visualizer>
-      </div>
-
-      <!-- ✅ Custom Player and Visualizer Style -->
+      <!-- 🎨 Block 1 -->
       <div class="midi-block midi-style theme-yellow" style="margin-top: 2rem;">
-          <h3 class="title is-5">🎨 Custom player and visualizer style</h3>
-          <midi-player
-            src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid"
-            sound-font
-            visualizer=".midi-style.theme-yellow midi-visualizer">
-          </midi-player>
-          <midi-visualizer
-            src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid">
-          </midi-visualizer>
-        </div>
+        <h3 class="title is-5">LSTM</h3>
+        <midi-player
+          src="static/mid/OUR_LSTM/OUR_LSTM.mid"
+          sound-font
+          visualizer=".midi-style.theme-yellow midi-visualizer">
+        </midi-player>
+        <midi-visualizer
+          src="static/mid/OUR_LSTM/OUR_LSTM.mid">
+        </midi-visualizer>
+      </div>
+
+      <!-- 🎨 Block 2 -->
+      <div class="midi-block midi-style theme-yellow" style="margin-top: 2rem;">
+        <h3 class="title is-5">GPT SMALL</h3>
+        <midi-player
+          src="static/mid/OUR_GPT_S/OUR_GPT_S.mid"
+          sound-font
+          visualizer=".midi-style.theme-yellow midi-visualizer">
+        </midi-player>
+        <midi-visualizer
+          src="static/mid/OUR_GPT_S/OUR_GPT_S.mid">
+        </midi-visualizer>
+      </div>
+
+      <!-- 🎨 Block 3 -->
+      <div class="midi-block midi-style theme-yellow" style="margin-top: 2rem;">
+        <h3 class="title is-5">GPT LARGE</h3>
+        <midi-player
+          src="static/mid/OUR_GPT_L/OUR_GPT_L.mid"
+          sound-font
+          visualizer=".midi-style.theme-yellow midi-visualizer">
+        </midi-player>
+        <midi-visualizer
+          src="static/mid/OUR_GPT_L/OUR_GPT_L.mid">
+        </midi-visualizer>
+      </div>
+
+      <!-- 🎨 Block 4 -->
+      <div class="midi-block midi-style theme-yellow" style="margin-top: 2rem;">
+        <h3 class="title is-5">LLAMA</h3>
+        <midi-player
+          src="static/mid/OUR_LLAMA/OUR_LLAMA.mid"
+          sound-font
+          visualizer=".midi-style.theme-yellow midi-visualizer">
+        </midi-player>
+        <midi-visualizer
+          src="static/mid/OUR_LLAMA/OUR_LLAMA.mid">
+        </midi-visualizer>
+      </div>
 
     </div>
   </div>
 </section>
 <!-- End MIDI Player Section -->
+
 
     
 <!-- Required Scripts -->
