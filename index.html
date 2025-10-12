@@ -108,7 +108,9 @@
   <script defer src="static/js/bulma-carousel.min.js"></script>
   <script defer src="static/js/bulma-slider.min.js"></script>
   <script defer src="static/js/index.js"></script>
-  
+  <script defer src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
+  <script defer src="https://unpkg.com/@tonejs/midi@2.0.27/build/Midi.js"></script>
+
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
   {
@@ -442,6 +444,63 @@
 </section>
 <!-- End bilibili video -->
 
+
+<!-- MIDI Player -->
+<section class="section hero is-light" id="midi-player">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">MIDI Demo</h2>
+
+    <div class="box">
+      <div class="field is-grouped is-grouped-multiline">
+        <p class="control">
+          <button class="button is-dark is-rounded" id="midi-play">
+            <span class="icon"><i class="fas fa-play"></i></span><span>Play</span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button is-warning is-rounded" id="midi-pause">
+            <span class="icon"><i class="fas fa-pause"></i></span><span>Pause</span>
+          </button>
+        </p>
+        <p class="control">
+          <button class="button is-danger is-rounded" id="midi-stop">
+            <span class="icon"><i class="fas fa-stop"></i></span><span>Stop</span>
+          </button>
+        </p>
+
+        <div class="control" style="min-width:220px;margin-left:1rem;">
+          <label class="label is-small" style="margin-bottom:0.25rem;">Tempo (BPM)</label>
+          <input id="midi-tempo" class="slider is-fullwidth" step="1" min="40" max="220" value="120" type="range">
+          <div class="is-size-7" style="margin-top:0.25rem;">
+            <span id="midi-tempo-label">120</span> BPM
+          </div>
+        </div>
+
+        <div class="control" style="margin-left:1rem;">
+          <label class="label is-small" style="margin-bottom:0.25rem;">Load .mid</label>
+          <input id="midi-file" class="input" type="file" accept=".mid,.midi">
+        </div>
+
+        <div class="control" style="margin-left:1rem;min-width:320px;">
+          <label class="label is-small" style="margin-bottom:0.25rem;">Or URL (same-origin)</label>
+          <div class="field has-addons">
+            <p class="control is-expanded">
+              <input id="midi-url" class="input" type="text" placeholder="e.g. static/mid/鸟之诗.mid">
+            </p>
+            <p class="control">
+              <button id="midi-load-url" class="button is-link">Load</button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <p class="is-size-7 has-text-grey" id="midi-status">Status: idle</p>
+    </div>
+  </div>
+</section>
+<!-- End MIDI Player -->
+
+    
 <!-- Video carousel -->
 <section class="hero is-small">
   <div class="hero-body">
@@ -536,6 +595,136 @@
     </div>
   </div>
 </footer>
+
+
+<script>
+  // --- Simple MIDI Player using Tone.js + @tonejs/midi ---
+  (function () {
+    const $ = (id) => document.getElementById(id);
+
+    const playBtn = $('midi-play');
+    const pauseBtn = $('midi-pause');
+    const stopBtn = $('midi-stop');
+    const tempoSlider = $('midi-tempo');
+    const tempoLabel = $('midi-tempo-label');
+    const fileInput = $('midi-file');
+    const urlInput = $('midi-url');
+    const urlBtn = $('midi-load-url');
+    const statusEl = $('midi-status');
+
+    let parts = [];      // [{ synth, part }]
+    let currentMidi = null;
+
+    function setStatus(msg) {
+      statusEl.textContent = 'Status: ' + msg;
+    }
+
+    function disposeAll() {
+      try {
+        parts.forEach(({ synth, part }) => {
+          if (part) part.dispose();
+          if (synth) synth.dispose();
+        });
+      } catch (e) {}
+      parts = [];
+    }
+
+    function prepareMidi(midi) {
+      disposeAll();
+      currentMidi = midi;
+
+      // 默认 BPM（如果 MIDI 里没有 tempo，则用 120）
+      const firstTempo = (midi.header.tempos && midi.header.tempos[0]) ? midi.header.tempos[0].bpm : 120;
+      Tone.Transport.bpm.value = firstTempo;
+      tempoSlider.value = Math.round(firstTempo);
+      tempoLabel.textContent = Math.round(firstTempo);
+
+      // 轻微的全局音量衰减给更好的听感余量
+      const vol = new Tone.Volume(-6).toDestination();
+
+      midi.tracks.forEach((track, idx) => {
+        // 给每条轨道一个独立 PolySynth；你也可以改成 Sampler + SoundFont
+        const synth = new Tone.PolySynth(Tone.Synth, {
+          oscillator: { type: 'triangle' },
+          envelope: { attack: 0.01, decay: 0.1, sustain: 0.3, release: 1.2 }
+        }).connect(vol);
+
+        const part = new Tone.Part((time, note) => {
+          synth.triggerAttackRelease(note.name, note.duration, time, note.velocity);
+        }, track.notes).start(0);
+
+        part.loop = false;
+        parts.push({ synth, part });
+      });
+
+      // 重置到起点
+      Tone.Transport.stop();
+      Tone.Transport.seconds = 0;
+      setStatus('MIDI prepared. Tracks: ' + midi.tracks.length);
+    }
+
+    async function loadFromArrayBuffer(ab) {
+      setStatus('Parsing MIDI…');
+      const midi = new Midi(ab);  // window.Midi (from @tonejs/midi)
+      prepareMidi(midi);
+      setStatus('MIDI ready.');
+    }
+
+    async function loadFromUrl(url) {
+      try {
+        setStatus('Fetching ' + url + ' …');
+        const res = await fetch(url);
+        const ab = await res.arrayBuffer();
+        await loadFromArrayBuffer(ab);
+      } catch (err) {
+        console.error(err);
+        setStatus('Failed to load URL (CORS or path error).');
+      }
+    }
+
+    // --- controls ---
+    playBtn.addEventListener('click', async () => {
+      await Tone.start(); // iOS/Chrome 音频解锁
+      Tone.Transport.start();
+      setStatus('Playing…');
+    });
+
+    pauseBtn.addEventListener('click', () => {
+      Tone.Transport.pause();
+      setStatus('Paused.');
+    });
+
+    stopBtn.addEventListener('click', () => {
+      Tone.Transport.stop();
+      Tone.Transport.seconds = 0;
+      setStatus('Stopped.');
+    });
+
+    tempoSlider.addEventListener('input', () => {
+      const v = parseInt(tempoSlider.value, 10);
+      Tone.Transport.bpm.value = v;
+      tempoLabel.textContent = v;
+    });
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const ab = await file.arrayBuffer();
+      await loadFromArrayBuffer(ab);
+    });
+
+    urlBtn.addEventListener('click', async () => {
+      const url = urlInput.value.trim();
+      if (!url) return;
+      await loadFromUrl(url);
+    });
+
+    // 可选：页面加载后先尝试默认 demo
+    // 确保存在 static/midi/demo.mid 时再启用下行：
+    // loadFromUrl('static/midi/demo.mid');
+  })();
+</script>
+    
 
 <!-- Statcounter tracking code -->
   
