@@ -6,7 +6,7 @@
   
   <!-- Primary Meta Tags -->
   <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="PAPER_TITLE - AUTHOR_NAMES">
+  <meta name="title" content="PIANOROLL-EVENT: A NOVEL SCORE REPRESENTATION FOR SYMBOLIC MUSIC">
   <!-- TODO: Write a compelling 150-160 character description of your research -->
   <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
   <!-- TODO: Add 5-10 relevant keywords for your research area -->
@@ -450,13 +450,14 @@
      ======================= -->
 <section class="hero is-small">
   <div class="hero-body">
-    <div class="container has-text-centered">
+    <!-- ❌ 不再在 container 上使用 has-text-centered -->
+    <div class="container">
 
-      <!-- Section Title -->
-      <h2 class="title is-3">MIDI Demo Section</h2>
+      <!-- ✅ 只让这个标题居中 -->
+      <h2 class="title is-3 has-text-centered">MIDI Demo</h2>
 
       <!-- Piano Roll Visualizer -->
-      <div class="midi-block">
+      <div class="midi-block" style="margin-top: 2rem;">
         <h3 class="title is-5">🎹 Piano Roll Visualizer</h3>
         <midi-player
           src="static/mid/鸟之诗.mid"
