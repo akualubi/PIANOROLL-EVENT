@@ -452,7 +452,6 @@
   <div class="hero-body">
     <div class="container">
 
-      <!-- ✅ 只让这个标题居中 -->
       <h2 class="title is-3 has-text-centered">MIDI Demo</h2>
 
       <!-- 🎨 Block 1 -->
@@ -461,11 +460,9 @@
         <midi-player
           src="static/mid/OUR_LSTM/OUR_LSTM.mid"
           sound-font
-          visualizer=".midi-style.theme-yellow midi-visualizer">
+          visualizer="#viz-lstm">
         </midi-player>
-        <midi-visualizer
-          src="static/mid/OUR_LSTM/OUR_LSTM.mid">
-        </midi-visualizer>
+        <midi-visualizer id="viz-lstm"></midi-visualizer>
       </div>
 
       <!-- 🎨 Block 2 -->
@@ -474,11 +471,9 @@
         <midi-player
           src="static/mid/OUR_GPT_S/OUR_GPT_S.mid"
           sound-font
-          visualizer=".midi-style.theme-yellow midi-visualizer">
+          visualizer="#viz-gpt-s">
         </midi-player>
-        <midi-visualizer
-          src="static/mid/OUR_GPT_S/OUR_GPT_S.mid">
-        </midi-visualizer>
+        <midi-visualizer id="viz-gpt-s"></midi-visualizer>
       </div>
 
       <!-- 🎨 Block 3 -->
@@ -487,11 +482,9 @@
         <midi-player
           src="static/mid/OUR_GPT_L/OUR_GPT_L.mid"
           sound-font
-          visualizer=".midi-style.theme-yellow midi-visualizer">
+          visualizer="#viz-gpt-l">
         </midi-player>
-        <midi-visualizer
-          src="static/mid/OUR_GPT_L/OUR_GPT_L.mid">
-        </midi-visualizer>
+        <midi-visualizer id="viz-gpt-l"></midi-visualizer>
       </div>
 
       <!-- 🎨 Block 4 -->
@@ -500,30 +493,16 @@
         <midi-player
           src="static/mid/OUR_LLAMA/OUR_LLAMA.mid"
           sound-font
-          visualizer=".midi-style.theme-yellow midi-visualizer">
+          visualizer="#viz-llama">
         </midi-player>
-        <midi-visualizer
-          src="static/mid/OUR_LLAMA/OUR_LLAMA.mid">
-        </midi-visualizer>
-      </div>
-
-      <!-- 🎨 Block 5 -->
-      <div class="midi-block midi-style theme-yellow" style="margin-top: 2rem;">
-        <h3 class="title is-5">鸟之诗</h3>
-        <midi-player
-          src="static/mid/鸟之诗.mid"
-          sound-font
-          visualizer=".midi-style.theme-yellow midi-visualizer">
-        </midi-player>
-        <midi-visualizer
-          src="static/mid/鸟之诗.mid">
-        </midi-visualizer>
+        <midi-visualizer id="viz-llama"></midi-visualizer>
       </div>
 
     </div>
   </div>
 </section>
 <!-- End MIDI Player Section -->
+
 
 
     
