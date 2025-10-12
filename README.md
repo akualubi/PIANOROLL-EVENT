@@ -1,7 +1,6 @@
 # PIANOROLL-EVENT: A Novel Score Representation for Symbolic Music
 
-> **Update (October 2025)**: This project page has been refreshed with a cleaner layout, better mobile support, and streamlined assets.  
-> For an older snapshot, see the `legacy` branch.
+> **Update (October 2025)**: Demo Page
 
 A clean, responsive project page for presenting **pianoroll-event** representation, audio/MIDI demos, figures, and videos.
 
