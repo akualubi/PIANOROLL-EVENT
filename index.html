@@ -446,35 +446,70 @@
 <!-- End bilibili video -->
 
 
-<midi-player
-  src="static/mid/鸟之诗.mid"
-  sound-font visualizer="#myPianoRollVisualizer">
-</midi-player>
+<!-- =======================
+     MIDI Player Section
+     ======================= -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
 
-<midi-visualizer type="piano-roll" id="myPianoRollVisualizer" 
-  src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/twinkle_twinkle.mid">
-</midi-visualizer>
+      <!-- Section Title -->
+      <h2 class="title is-3">MIDI Demo Section</h2>
 
-<midi-player
-  src="static/mid/鸟之诗.mid"
-  sound-font visualizer="#myStaffVisualizer">
-</midi-player>
+      <!-- Piano Roll Visualizer -->
+      <div class="midi-block">
+        <h3 class="title is-5">🎹 Piano Roll Visualizer</h3>
+        <midi-player
+          src="static/mid/鸟之诗.mid"
+          sound-font
+          visualizer="#viz-piano-roll">
+        </midi-player>
+        <midi-visualizer
+          type="piano-roll"
+          id="viz-piano-roll">
+        </midi-visualizer>
+      </div>
 
-<midi-visualizer type="staff" id="myStaffVisualizer" 
-  src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/twinkle_twinkle.mid">
-</midi-visualizer>
+      <!-- Staff Visualizer -->
+      <div class="midi-block" style="margin-top: 2rem;">
+        <h3 class="title is-5">🎼 Staff Visualizer</h3>
+        <midi-player
+          src="static/mid/鸟之诗.mid"
+          sound-font
+          visualizer="#viz-staff-1">
+        </midi-player>
+        <midi-visualizer
+          type="staff"
+          id="viz-staff-1">
+        </midi-visualizer>
+      </div>
 
-<midi-player
-  src="static/mid/twinkle_twinkle.mid"
-  sound-font visualizer="#myStaffVisualizer">
-</midi-player>
+      <!-- Another Staff Visualizer -->
+      <div class="midi-block" style="margin-top: 2rem;">
+        <h3 class="title is-5">✨ Another Example</h3>
+        <midi-player
+          src="static/mid/twinkle_twinkle.mid"
+          sound-font
+          visualizer="#viz-staff-2">
+        </midi-player>
+        <midi-visualizer
+          type="staff"
+          id="viz-staff-2">
+        </midi-visualizer>
+      </div>
 
-<midi-visualizer type="staff" id="myStaffVisualizer" 
-  src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/twinkle_twinkle.mid">
-</midi-visualizer>
-    
-<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+    </div>
+  </div>
+</section>
+<!-- End MIDI Player Section -->
 
+<!-- Required Scripts -->
+<script src="https://cdn.jsdelivr.net/combine/
+  npm/tone@14.7.58,
+  npm/@magenta/music@1.23.1/es6/core.js,
+  npm/focus-visible@5,
+  npm/html-midi-player@1.5.0">
+</script>
 
 
 
