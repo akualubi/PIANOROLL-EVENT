@@ -450,7 +450,6 @@
      ======================= -->
 <section class="hero is-small">
   <div class="hero-body">
-    <!-- ❌ 不再在 container 上使用 has-text-centered -->
     <div class="container">
 
       <!-- ✅ 只让这个标题居中 -->
@@ -498,10 +497,24 @@
         </midi-visualizer>
       </div>
 
+      <!-- ✅ Custom Player and Visualizer Style -->
+      <div class="midi-block midi-style" style="margin-top: 2rem;">
+        <h3 class="title is-5">🎨 Custom player and visualizer style</h3>
+        <midi-player
+          src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid"
+          sound-font
+          visualizer=".midi-style midi-visualizer">
+        </midi-player>
+        <midi-visualizer
+          src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/jazz.mid">
+        </midi-visualizer>
+      </div>
+
     </div>
   </div>
 </section>
 <!-- End MIDI Player Section -->
+
 
 <section id="section3">
 <h2>Custom player and visualizer style</h2>
@@ -535,7 +548,7 @@
           <span class="copy-text">Copy</span>
         </button>
       </div>
-      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
+      <pre id="bibtex-code"><code>@article{YourPaperKey2026,
   title={PIANOROLL-EVENT: A NOVEL SCORE REPRESENTATION FOR SYMBOLIC MUSIC},
   author={Lekai Qian*, Haoyu Gu*, Dehan Li*, Boyu Cao, Qi Liu†}, 
   journal={ICASSP}, 
