@@ -110,7 +110,8 @@
   <script defer src="static/js/index.js"></script>
   <script defer src="https://unpkg.com/tone@14.8.49/build/Tone.js"></script>
   <script defer src="https://unpkg.com/@tonejs/midi@2.0.27/build/Midi.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"></script>
+  
   <!-- Structured Data for Academic Papers -->
   <script type="application/ld+json">
   {
@@ -445,251 +446,28 @@
 <!-- End bilibili video -->
 
 
-<!-- MIDI Player -->
-<section class="section hero is-light" id="midi-player">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">MIDI Demo</h2>
+<midi-player
+  src="static/mid/鸟之诗.mid"
+  sound-font visualizer="#myPianoRollVisualizer">
+</midi-player>
 
-    <div class="box">
-      <div class="field is-grouped is-grouped-multiline">
-        <p class="control">
-          <button class="button is-dark is-rounded" id="midi-play">
-            <span class="icon"><i class="fas fa-play"></i></span><span>Play</span>
-          </button>
-        </p>
-        <p class="control">
-          <button class="button is-warning is-rounded" id="midi-pause">
-            <span class="icon"><i class="fas fa-pause"></i></span><span>Pause</span>
-          </button>
-        </p>
-        <p class="control">
-          <button class="button is-danger is-rounded" id="midi-stop">
-            <span class="icon"><i class="fas fa-stop"></i></span><span>Stop</span>
-          </button>
-        </p>
+<midi-visualizer type="piano-roll" id="myPianoRollVisualizer" 
+  src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/twinkle_twinkle.mid">
+</midi-visualizer>
 
-        <div class="control" style="min-width:220px;margin-left:1rem;">
-          <label class="label is-small" style="margin-bottom:0.25rem;">Tempo (BPM)</label>
-          <input id="midi-tempo" class="slider is-fullwidth" step="1" min="40" max="220" value="120" type="range">
-          <div class="is-size-7" style="margin-top:0.25rem;">
-            <span id="midi-tempo-label">120</span> BPM
-          </div>
-        </div>
+<midi-player
+  src="static/mid/鸟之诗.mid"
+  sound-font visualizer="#myStaffVisualizer">
+</midi-player>
 
-        <div class="control" style="margin-left:1rem;">
-          <label class="label is-small" style="margin-bottom:0.25rem;">Load .mid</label>
-          <input id="midi-file" class="input" type="file" accept=".mid,.midi">
-        </div>
+<midi-visualizer type="staff" id="myStaffVisualizer" 
+  src="https://cdn.jsdelivr.net/gh/cifkao/html-midi-player@2b12128/twinkle_twinkle.mid">
+</midi-visualizer>
 
-        <div class="control" style="margin-left:1rem;min-width:320px;">
-          <label class="label is-small" style="margin-bottom:0.25rem;">Or URL (same-origin)</label>
-          <div class="field has-addons">
-            <p class="control is-expanded">
-              <input id="midi-url" class="input" type="text" placeholder="e.g. static/mid/鸟之诗.mid">
-            </p>
-            <p class="control">
-              <button id="midi-load-url" class="button is-link">Load</button>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <p class="is-size-7 has-text-grey" id="midi-status">Status: idle</p>
-    </div>
-  </div>
-</section>
-<!-- End MIDI Player -->
+<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
 
 
-<!-- ===== Minimal Pill MIDI Bar (looks like native audio) ===== -->
-<section class="section hero is-light" id="midi-player">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">MIDI 播放</h2>
 
-    <!-- 新外观：胶囊条 -->
-    <div class="midi-pill">
-      <button class="pill-btn" id="pill-toggle" aria-label="Play/Pause">
-        <!-- ▶ / ❚❚ 会按状态切换 -->
-        <span id="pill-icon">▶</span>
-      </button>
-
-      <span class="pill-time" id="pill-time">0:00 / 0:00</span>
-
-      <input class="pill-seek" id="pill-seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek">
-
-      <button class="pill-vol-btn" id="pill-vol-btn" aria-label="Volume">
-        🔊
-      </button>
-      <input class="pill-vol" id="pill-vol" type="range" min="0" max="1" step="0.01" value="1" aria-label="Volume">
-
-      <button class="pill-more" aria-label="More">
-        ⋮
-      </button>
-    </div>
-
-    <!-- 仅供兼容你原始逻辑的隐藏元素（不要删） -->
-    <div style="display:none">
-      <button id="midi-play"></button>
-      <button id="midi-pause"></button>
-      <button id="midi-stop"></button>
-
-      <input id="midi-url" type="text">
-      <button id="midi-load-url"></button>
-    </div>
-
-    <p class="is-size-7 has-text-grey" id="midi-status">Status: loading…</p>
-  </div>
-</section>
-
-<style>
-  .midi-pill{
-    display:flex; align-items:center; gap:.8rem;
-    background:#f3f5f7; border-radius:999px; padding:.6rem .9rem;
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.03);
-  }
-  .pill-btn,.pill-vol-btn,.pill-more{
-    width:36px; height:36px; border:none; border-radius:999px; cursor:pointer;
-    display:grid; place-items:center; background:white;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-  }
-  .pill-btn{font-weight:700}
-  .pill-time{font-variant-numeric: tabular-nums; color:#333; min-width:110px; text-align:center}
-  .pill-seek{
-    appearance:none; -webkit-appearance:none; flex:1; height:6px; border-radius:4px; background:#d8dbe0; cursor:pointer;
-  }
-  .pill-seek::-webkit-slider-thumb{
-    -webkit-appearance:none; appearance:none; width:14px; height:14px; border-radius:50%; background:#9aa3af; border:2px solid white; box-shadow:0 0 0 1px rgba(0,0,0,0.08);
-  }
-  .pill-seek::-moz-range-thumb{
-    width:14px; height:14px; border-radius:50%; background:#9aa3af; border:2px solid white;
-  }
-  .pill-vol{width:90px}
-  .pill-vol, .pill-vol-btn { user-select:none }
-  /* 小屏时更紧凑 */
-  @media (max-width: 520px){
-    .pill-time{display:none}
-    .pill-vol{width:70px}
-  }
-</style>
-
-<script>
-(function(){
-  // === 1) 默认加载 鸟之诗.mid ===
-  const DEFAULT_MIDI_URL = 'static/mid/鸟之诗.mid';   // ← 改成你的真实路径
-  const loadUrlInput = document.getElementById('midi-url');
-  const loadUrlBtn   = document.getElementById('midi-load-url');
-  loadUrlInput.value = decodeURI(DEFAULT_MIDI_URL);
-  // 触发你原先的“按URL加载”逻辑
-  if (loadUrlBtn) loadUrlBtn.click();
-
-  // === 2) UI 元素 ===
-  const pillToggle = document.getElementById('pill-toggle');
-  const pillIcon   = document.getElementById('pill-icon');
-  const pillSeek   = document.getElementById('pill-seek');
-  const pillTime   = document.getElementById('pill-time');
-  const pillVolBtn = document.getElementById('pill-vol-btn');
-  const pillVol    = document.getElementById('pill-vol');
-  const statusEl   = document.getElementById('midi-status');
-
-  const btnPlay  = document.getElementById('midi-play');   // 兼容旧逻辑
-  const btnPause = document.getElementById('midi-pause');
-  const btnStop  = document.getElementById('midi-stop');
-
-  let isPlaying = false;
-  let durationSec = 0;
-  let suppressSeekUpdate = false; // 拖动时暂时不被外部进度覆盖
-
-  // === 3) 工具 ===
-  function fmt(t){
-    if (!isFinite(t) || t<0) t = 0;
-    const m = Math.floor(t/60);
-    const s = Math.floor(t%60);
-    return m + ':' + (s<10 ? '0'+s : s);
-  }
-
-  function setPlayState(play){
-    isPlaying = play;
-    pillIcon.textContent = play ? '❚❚' : '▶';
-  }
-
-  // === 4) 事件：播放/暂停 ===
-  pillToggle.addEventListener('click', ()=>{
-    if (!isPlaying){
-      btnPlay?.click();          // 调你原本的播放
-      setPlayState(true);
-      statusEl.textContent = 'Status: playing';
-    }else{
-      btnPause?.click();         // 调你原本的暂停
-      setPlayState(false);
-      statusEl.textContent = 'Status: paused';
-    }
-  });
-
-  // === 5) 拖动进度（把秒数回调给你的播放内核）===
-  pillSeek.addEventListener('input', ()=>{
-    suppressSeekUpdate = true;
-    const pct = parseFloat(pillSeek.value)/100;
-    const target = (durationSec||0) * pct;
-    // 你原来的代码里应有“seek 到某秒”的函数，假设是 window.midiSeek
-    if (typeof window.midiSeek === 'function') {
-      window.midiSeek(target);
-    }
-  });
-  pillSeek.addEventListener('change', ()=>{
-    suppressSeekUpdate = false;
-  });
-
-  // === 6) 音量 ===
-  pillVol.addEventListener('input', ()=>{
-    const v = parseFloat(pillVol.value);
-    if (typeof window.midiSetVolume === 'function'){
-      window.midiSetVolume(v); // 0.0 - 1.0
-    }
-  });
-
-  // 点击喇叭“静音/恢复”（简单示例：切换 0 或 1）
-  let lastVol = 1;
-  pillVolBtn.addEventListener('click', ()=>{
-    const v = parseFloat(pillVol.value);
-    if (v > 0){
-      lastVol = v;
-      pillVol.value = 0;
-      if (typeof window.midiSetVolume === 'function') window.midiSetVolume(0);
-    }else{
-      pillVol.value = lastVol || 1;
-      if (typeof window.midiSetVolume === 'function') window.midiSetVolume(parseFloat(pillVol.value));
-    }
-  });
-
-  // === 7) 对外暴露一个 UI 更新入口 ===
-  // **务必在你的 MIDI 播放循环里调用**：
-  //   window.updateMidiUI(currentSec, durationSec, isPlayingBool)
-  window.updateMidiUI = function(current, duration, playing){
-    durationSec = duration || 0;
-    if (typeof playing === 'boolean') setPlayState(playing);
-
-    if (!suppressSeekUpdate && durationSec > 0){
-      const pct = Math.min(100, Math.max(0, (current/durationSec)*100));
-      pillSeek.value = pct.toFixed(3);
-    }
-    pillTime.textContent = `${fmt(current)} / ${fmt(durationSec)}`;
-    if (!durationSec) statusEl.textContent = 'Status: loading…';
-    else if (isPlaying) statusEl.textContent = 'Status: playing';
-    else statusEl.textContent = 'Status: paused';
-  };
-
-  // === 8) 如果你的旧代码会发事件，也支持监听（可选）===
-  // 例如 document.dispatchEvent(new CustomEvent('midiplayer:time', {detail:{current,duration,playing}}))
-  document.addEventListener('midiplayer:time', (e)=>{
-    const {current=0, duration=0, playing=false} = e.detail||{};
-    window.updateMidiUI(current, duration, playing);
-  });
-
-  // === 9) 自动开播（可选）===
-  // btnPlay?.click();
-
-})();
-</script>
 
   
 <!-- Video carousel -->
