@@ -105,3 +105,20 @@
   opacity: 1;
   stroke: #111827;
 }
+
+
+/* 让每个显示块（midi-block）在容器内水平居中 */
+.midi-block {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 让可视化框（piano-roll / staff 的外层可视化容器）在块内居中 */
+.midi-style.theme-yellow midi-visualizer .piano-roll-visualizer,
+.midi-style.theme-yellow midi-visualizer .staff-visualizer,
+.midi-style.theme-clean  midi-visualizer .piano-roll-visualizer,
+.midi-style.theme-clean  midi-visualizer .staff-visualizer {
+  margin-left: auto;
+  margin-right: auto;
+}
+
