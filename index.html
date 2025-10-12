@@ -372,6 +372,18 @@
 </section>
 <!-- End paper abstract -->
 
+<!-- 引入 bulma-carousel -->
+<script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.24/dist/js/bulma-carousel.min.js"></script>
+
+<script>
+  bulmaCarousel.attach('#results-carousel', {
+    autoplay: false,   // ❌ 不自动轮播
+    loop: false,       // ❌ 不循环
+    slidesToScroll: 1,
+    slidesToShow: 1
+  });
+</script>
+    
 
 <!-- Video carousel -->
 <section class="hero is-small">
