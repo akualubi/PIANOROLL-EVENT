@@ -127,7 +127,7 @@ $(document).ready(function() {
 		slidesToShow: 1,
 		loop: true,
 		infinite: true,
-		autoplay: true,
+		autoplay: false,  // 已禁用自动滑动
 		autoplaySpeed: 5000,
     }
 
@@ -135,8 +135,8 @@ $(document).ready(function() {
     var carousels = bulmaCarousel.attach('.carousel', options);
 	
     bulmaSlider.attach();
-    
+
     // Setup video autoplay for carousel
-    setupVideoCarouselAutoplay();
+    // setupVideoCarouselAutoplay();  // 已禁用视频自动播放
 
 })
