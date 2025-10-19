@@ -15,16 +15,7 @@ Symbolic music representation is a fundamental challenge in computational musico
 </p>
 
 
-## 🧭 Quick Links
-- **Project Page:** `https://your-domain.com/pianoroll-event`
-- **Paper (arXiv):** `https://arxiv.org/abs/xxxx.xxxxx`
-- **Code:** `https://github.com/yourname/pianoroll-event`
-- **Demo Video:** `https://youtu.be/xxxxxxxxxxx`
-
----
-
-
-## ✨ What’s New
+## ✨ What's New
 - Modern, responsive layout (Bulma) with accessible typography
 - Built-in **MIDI player + visualizer** (piano-roll / staff)
 - Image & video sections with optional carousel
