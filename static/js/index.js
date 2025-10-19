@@ -145,18 +145,6 @@ $(document).ready(function() {
         video.volume = 0.5; // 50% volume
     });
 
-    // Pause previous video when carousel slides change
-    if (carousels && carousels.length > 0) {
-        carousels.forEach(carousel => {
-            carousel.on('before:show', state => {
-                // Pause all videos in the carousel
-                const videos = carousel.element.querySelectorAll('video');
-                videos.forEach(video => {
-                    video.pause();
-                    video.currentTime = 0; // Reset video to beginning
-                });
-            });
-        });
-    }
+
 
 })
