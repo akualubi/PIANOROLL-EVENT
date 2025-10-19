@@ -139,4 +139,10 @@ $(document).ready(function() {
     // Setup video autoplay for carousel
     // setupVideoCarouselAutoplay();  // 已禁用视频自动播放
 
+    // Set carousel videos default volume to 50%
+    const carouselVideos = document.querySelectorAll('.results-carousel video');
+    carouselVideos.forEach(video => {
+        video.volume = 0.5; // 50% volume
+    });
+
 })
